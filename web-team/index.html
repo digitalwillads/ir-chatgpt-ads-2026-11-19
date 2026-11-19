@@ -2,45 +2,75 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>ChatGPT ads tracking: what your web team adds</title>
+<title>ChatGPT ads tracking for the web team</title>
 <style>
-  :root { --ink:#1f2328; --soft:#5b616b; --line:#e5e7eb; --bg:#f7f8fa; --blue:#23649a; }
   * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 Inter, -apple-system, system-ui, "Segoe UI", sans-serif; }
-  main { max-width:860px; margin:0 auto; padding:48px 28px 80px; }
-  h1 { font-size:32px; line-height:1.2; margin:0 0 8px; }
-  h2 { font-size:20px; margin:0 0 8px; }
-  a { color:var(--blue); }
-  .sub { color:var(--soft); margin:0 0 24px; }
-  .card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:22px 24px; margin-bottom:16px; }
-  table { width:100%; border-collapse:collapse; font-size:15px; }
-  th, td { text-align:left; vertical-align:top; padding:8px 10px 8px 0; border-top:1px solid var(--line); overflow-wrap:anywhere; }
-  th { color:var(--soft); font-weight:500; }
-  .gbody th { width:130px; }
-  .gs { display:flex; gap:16px; background:#fff; border:1px solid var(--line); border-radius:16px; padding:22px 24px; margin-bottom:14px; }
-  .num { flex:none; width:34px; height:34px; border-radius:50%; background:var(--blue); color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center; }
-  .gbody { flex:1; min-width:0; }
-  .gbody p { margin:8px 0; }
-  pre { background:#1f2328; color:#e6edf3; border-radius:12px; padding:14px 16px; overflow-x:auto; font-size:13px; line-height:1.5; margin:12px 0 4px; }
-  .cap { font-size:13px; color:var(--soft); }
-  ol { margin:6px 0 0; padding-left:20px; } li { margin:6px 0; }
-  @media (max-width:640px) { main { padding:28px 14px 60px; } h1 { font-size:26px; } .gs { padding:16px; gap:12px; } .gbody th { width:95px; } }
+  body { margin:0; background:#fff; color:#1b1b1b; font:16.5px/1.6 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; }
+  main { max-width:780px; margin:0 auto; padding:56px 24px 96px; }
+  .from { color:#6b6b6b; font-size:14px; margin:0 0 28px; }
+  h1 { font-size:31px; line-height:1.2; margin:0 0 16px; letter-spacing:-0.01em; }
+  h2 { font-size:23px; line-height:1.25; margin:56px 0 6px; padding-top:28px; border-top:1px solid #dcdcdc; display:flex; align-items:center; gap:10px; }
+  h2 img { width:30px; height:30px; object-fit:contain; }
+  h3 { font-size:18px; margin:32px 0 6px; }
+  h4 { font-size:16px; margin:24px 0 2px; }
+  p { margin:10px 0; }
+  a { color:#1a5fb4; }
+  ol { padding-left:22px; } ol li { margin:8px 0; }
+  .gray { color:#6b6b6b; }
+  .small { font-size:14px; }
+  table { width:100%; border-collapse:collapse; font-size:15px; margin:8px 0; }
+  th, td { text-align:left; vertical-align:top; padding:7px 12px 7px 0; border-bottom:1px solid #ececec; overflow-wrap:anywhere; }
+  th { font-weight:500; color:#6b6b6b; }
+  table.kv th { width:190px; }
+  code { font:13.5px ui-monospace, Menlo, monospace; background:#f4f4f4; padding:1px 4px; border-radius:4px; }
+  pre { background:#f6f6f6; border:1px solid #e6e6e6; border-radius:8px; padding:14px 16px; overflow-x:auto; font:13px/1.5 ui-monospace, Menlo, monospace; }
+  pre code { background:none; padding:0; }
+  .logo-img { width:40px; height:40px; object-fit:contain; border:1px solid #ececec; border-radius:6px; }
+  /* the ad, drawn the way ChatGPT shows a sponsored card */
+  .ads { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px; margin:10px 0 6px; }
+  .ad { margin:0; border:1px solid #e3e3e3; border-radius:16px; padding:12px 14px; background:#fff; }
+  .ad-head { display:flex; align-items:center; gap:7px; font-size:13px; margin-bottom:8px; }
+  .ad-head img { width:20px; height:20px; border-radius:50%; object-fit:contain; border:1px solid #ececec; }
+  .ad-head b { font-weight:600; }
+  .ad-head span { color:#8a8a8a; margin-left:auto; }
+  .ad-body { display:flex; gap:12px; align-items:center; }
+  .ad-body img { width:76px; height:76px; border-radius:10px; object-fit:cover; flex:none; background:#f3f3f3; }
+  .ad .t { font-weight:600; font-size:15px; line-height:1.3; }
+  .ad .b { color:#555; font-size:14px; line-height:1.35; margin-top:2px; }
+  .ad .h { color:#8a8a8a; font-size:12px; margin-top:3px; }
+  .hints { font-size:14px; color:#555; margin:6px 0 0; }
+  .prods { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:14px; margin:12px 0; }
+  .prods figure { margin:0; font-size:13.5px; line-height:1.35; overflow-wrap:anywhere; }
+  .prods img { width:100%; aspect-ratio:1; object-fit:contain; background:#f6f6f6; border-radius:8px; margin-bottom:6px; }
+  .screen { background:#212121; color:#ececec; border-radius:12px; padding:18px 20px; max-width:420px; margin:12px 0 4px; font-size:14px; }
+  .screen .st { font-weight:600; font-size:16px; text-align:center; margin-bottom:12px; }
+  .screen .fl { color:#b4b4b4; font-size:12.5px; margin:8px 0 3px; }
+  .screen .fv { border:1px solid #555; border-radius:8px; padding:7px 10px; overflow-wrap:anywhere; }
+  .screen .btn { margin-top:12px; text-align:center; background:#ececec; color:#212121; border-radius:999px; padding:7px; font-weight:600; }
+  .heads-up { border-left:3px solid #c98a00; padding:2px 0 2px 12px; margin:12px 0; }
+  @media (max-width:640px) {
+    main { padding:32px 16px 72px; }
+    h1 { font-size:25px; }
+    h2 { font-size:21px; }
+    .ads { grid-template-columns:1fr; }
+    .prods { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    table.kv th { width:120px; }
+  }
 </style></head>
 <body><main>
-  <h1>ChatGPT ads tracking: what your web team adds</h1>
-  <p class="sub">Three tags and one variable in Google Tag Manager, about 20 minutes. They work like your Google Ads and Meta tags: a base tag on every page, and an event when a form is sent or an order is placed. <a href="../">See the full ads plan</a>.</p>
-  <div class="card">
-    <h2>Where they go</h2>
-    <table><tr><th>Site</th><th>Address</th><th>Container</th></tr><tr><td><b>Air Dimensions</b></td><td>www.airdimensions.com</td><td>GTM-TDXVF8KM</td></tr><tr><td><b>ADI Kits</b></td><td>shop.airdimensions.com</td><td>GTM-5DRHTRFG</td></tr><tr><td><b>Thomas</b></td><td>www.thomaspumps.com</td><td>GTM-TDXVF8KM</td></tr><tr><td><b>Welch Vacuum</b></td><td>www.welchvacuum.com</td><td>GTM-TDXVF8KM</td></tr><tr><td><b>Welch shop</b></td><td>shop.welchvacuum.com</td><td>GTM-5DRHTRFG</td></tr></table>
-  </div>
-  <section class="gs"><div class="num">1</div><div class="gbody"><h2>Variable: OpenAI Pixel ID</h2>
-    <p>A <b>Lookup Table</b> variable on <b>{{Page Hostname}}</b>, so one tag serves every brand in the container. We send the three pixel IDs as soon as the ChatGPT ads accounts exist.</p>
-    <table><tr><th>Page Hostname</th><th>Output</th></tr><tr><td>www.airdimensions.com</td><td>Air Dimensions pixel ID <span class="cap">(we send it)</span></td></tr><tr><td>shop.airdimensions.com</td><td>ADI Kits pixel ID <span class="cap">(we send it)</span></td></tr><tr><td>www.thomaspumps.com</td><td>Thomas pixel ID <span class="cap">(we send it)</span></td></tr><tr><td>www.welchvacuum.com</td><td>Welch Vacuum pixel ID <span class="cap">(we send it)</span></td></tr><tr><td>shop.welchvacuum.com</td><td>Welch shop pixel ID <span class="cap">(we send it)</span></td></tr></table>
-    <p class="cap">Any other hostname gets no output, so no OpenAI tag fires there.</p></div></section>
-  
-  <section class="gs"><div class="num">2</div><div class="gbody"><h2>Tag: OpenAI pixel, base</h2>
-    <table><tr><th>Tag type</th><td>Custom HTML</td></tr><tr><th>Fires on</th><td>Page View, only where {{OpenAI Pixel ID}} matches RegEx <code>.+</code> (a page of one of these sites), with the same cookie consent rule as your Meta pixel.</td></tr></table>
-    <pre><code>&lt;script&gt;
+
+  <p class="from">Digital Will Ads for Ingersoll Rand &middot; November 19, 2026</p>
+  <h1>ChatGPT ads tracking for the web team</h1>
+  <p>It's three tags and one variable in Google Tag Manager, and it works like the Google Ads and Meta tags you already have: a base tag on every page, then an event when a form is sent or an order goes through. It should take about 20 minutes. The <a href="../">full plan</a> has the rest.</p>
+  <table><tr><th>Site</th><th>Address</th><th>Container</th></tr><tr><td>Air Dimensions</td><td>www.airdimensions.com</td><td>GTM-TDXVF8KM</td></tr><tr><td>ADI Kits</td><td>shop.airdimensions.com</td><td>GTM-5DRHTRFG</td></tr><tr><td>Thomas</td><td>www.thomaspumps.com</td><td>GTM-TDXVF8KM</td></tr><tr><td>Welch Vacuum</td><td>www.welchvacuum.com</td><td>GTM-TDXVF8KM</td></tr><tr><td>Welch shop</td><td>shop.welchvacuum.com</td><td>GTM-5DRHTRFG</td></tr></table>
+
+  <h3>1. Variable: OpenAI Pixel ID</h3>
+  <p>A Lookup Table on <code>{{Page Hostname}}</code>, so one set of tags covers every brand in the container. We'll send the pixel IDs as soon as the ChatGPT accounts exist. Any other hostname gets nothing, so the tags don't fire there.</p>
+  <table><tr><th>Page Hostname</th><th>Output</th></tr><tr><td>www.airdimensions.com</td><td>Air Dimensions pixel ID</td></tr><tr><td>shop.airdimensions.com</td><td>ADI Kits pixel ID</td></tr><tr><td>www.thomaspumps.com</td><td>Thomas pixel ID</td></tr><tr><td>www.welchvacuum.com</td><td>Welch Vacuum pixel ID</td></tr><tr><td>shop.welchvacuum.com</td><td>Welch shop pixel ID</td></tr></table>
+
+  <h3>2. Base tag</h3>
+  <p>Custom HTML, firing on page views where <code>{{OpenAI Pixel ID}}</code> matches the RegEx <code>.+</code>, behind the same cookie consent as your Meta pixel.</p>
+  <pre><code>&lt;script&gt;
   (function (w, d, s, u) {
     if (w.oaiq) return;
     var q = function () { q.q.push(arguments); };
@@ -54,19 +84,20 @@
   })(window, document, &quot;script&quot;, &quot;https://bzrcdn.openai.com/sdk/oaiq.min.js&quot;);
 
   oaiq(&quot;init&quot;, { pixelId: &quot;{{OpenAI Pixel ID}}&quot; });
-&lt;/script&gt;</code></pre><p class='cap'>OpenAI's own snippet from its Measurement Pixel guide. It loads one small script from bzrcdn.openai.com. If the sites use a Content Security Policy, allow script-src https://bzrcdn.openai.com, connect-src https://bzr.openai.com and https://bzrcdn.openai.com, and img-src https://bzr.openai.com.</p></div></section>
-  
-  <section class="gs"><div class="num">3</div><div class="gbody"><h2>Tag: OpenAI, lead_created</h2>
-    <table><tr><th>Tag type</th><td>Custom HTML</td></tr><tr><th>Fires on</th><td>The same trigger as your Google Ads tag for <b>GAds_form_sent_all</b>: a form that was sent, not a button click.</td></tr></table>
-    <pre><code>&lt;script&gt;
+&lt;/script&gt;</code></pre>
+  <p class="gray small">This is OpenAI's own snippet. If the sites use a Content Security Policy, it needs script-src https://bzrcdn.openai.com, connect-src https://bzr.openai.com and https://bzrcdn.openai.com, and img-src https://bzr.openai.com.</p>
+
+  <h3>3. Lead tag</h3>
+  <p>Custom HTML on the same trigger as the Google Ads tag for GAds_form_sent_all, so it counts a sent form and not a button click. Set tag sequencing so the base tag fires first.</p>
+  <pre><code>&lt;script&gt;
   if (window.oaiq) {
     oaiq(&quot;measure&quot;, &quot;lead_created&quot;, { type: &quot;customer_action&quot; });
   }
-&lt;/script&gt;</code></pre><p class='cap'>Tag sequencing: fire tag 2 before this tag. One form sent sends one lead.</p></div></section>
-  
-  <section class="gs"><div class="num">4</div><div class="gbody"><h2>Tag: OpenAI, order_created (shop container only)</h2>
-    <table><tr><th>Tag type</th><td>Custom HTML</td></tr><tr><th>Fires on</th><td>The same trigger as your Google Ads tag for <b>GAds_purchase</b>, in GTM-5DRHTRFG.</td></tr></table>
-    <pre><code>&lt;script&gt;
+&lt;/script&gt;</code></pre>
+
+  <h3>4. Order tag (shop container only)</h3>
+  <p>Custom HTML on the same trigger as the GAds_purchase tag in GTM-5DRHTRFG. <code>{{Order Total}}</code> and <code>{{Order ID}}</code> are whatever variables that tag already uses. OpenAI wants the amount in cents, so $129.99 goes in as 12999.</p>
+  <pre><code>&lt;script&gt;
   if (window.oaiq) {
     oaiq(&quot;measure&quot;, &quot;order_created&quot;, {
       type: &quot;contents&quot;,
@@ -74,14 +105,10 @@
       currency: &quot;USD&quot;
     }, { event_id: &quot;{{Order ID}}&quot; });
   }
-&lt;/script&gt;</code></pre><p class='cap'>{{Order Total}} and {{Order ID}} are the order value and transaction ID variables your GAds_purchase tag already uses. OpenAI takes the amount in cents, so $129.99 is sent as 12999.</p></div></section>
-  <div class="card">
-    <h2>Test it together</h2>
-    <ol>
-      <li>Publish the container, or share a Preview link with us.</li>
-      <li>We send one test form on each site, as with the Google tags. For the shops, we confirm the first real order.</li>
-      <li>We confirm each event in ChatGPT Ads Manager under Conversions, and tell you it works.</li>
-    </ol>
-  </div>
-  <p class="cap">Code from OpenAI's developer docs, Measurement Pixel and Supported Events, read Nov 19, 2026.</p>
+&lt;/script&gt;</code></pre>
+
+  <h3>Testing</h3>
+  <p>Publish the container, or send us a Preview link. We'll send a test form on each site like we do with the Google tags and check that it shows up in ChatGPT Ads Manager. For the shops, we'll check the first real order.</p>
+  <p class="gray small" style="margin-top:40px">The code comes from OpenAI's developer docs (Measurement Pixel and Supported Events) as of November 19, 2026.</p>
+
 </main></body></html>
